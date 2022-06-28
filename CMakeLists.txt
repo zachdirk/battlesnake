@@ -7,4 +7,7 @@ PROJECT(BattleSnake)
 ADD_SUBDIRECTORY(external)
 
 # internal libraries
+# this is ordered by dependency
+ADD_SUBDIRECTORY(Core/Core)
+ADD_SUBDIRECTORY(Server/Server)
 ADD_SUBDIRECTORY(Battlesnake/Battlesnake)

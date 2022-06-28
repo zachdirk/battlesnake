@@ -3,5 +3,5 @@ ADD_EXECUTABLE(battlesnake
 )
 
 TARGET_LINK_LIBRARIES(battlesnake
-  httplib::httplib
+  server
 )
