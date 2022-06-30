@@ -4,6 +4,7 @@ namespace Battlesnake
 {
 namespace Core
 {
-using Vector = std::vector;
+template <typename T>
+using Vector = std::vector<T>;
 }
 }
