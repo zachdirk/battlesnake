@@ -47,41 +47,32 @@ struct SnakeCustomizations
 
   void Deserialize(const rapidjson::Value& v)
   {
-    std::cerr << "Deserializing SnakeCustomizations" << std::endl;
-    
     // this is a "required" field >:(
     if(v.HasMember("apiversion"))
     {
-      std::cerr << "Deserializing apiversion" << std::endl;
       apiversion = v["apiversion"].GetString();
     }
     // these are all optional fields
     if(v.HasMember("author"))
     {
-      std::cerr << "Deserializing author" << std::endl;
       author = v["author"].GetString();
     }
     if(v.HasMember("color"))
     {
-      std::cerr << "Deserializing color" << std::endl;
       color = v["color"].GetString();
     }
     if(v.HasMember("head"))
     {
-      std::cerr << "Deserializing head" << std::endl;
       head = v["head"].GetString();
     }
     if(v.HasMember("tail"))
     {
-      std::cerr << "Deserializing tail" << std::endl;
       tail = v["tail"].GetString();
     }
     if(v.HasMember("version"))
     {
-      std::cerr << "Deserializing version" << std::endl;
       version = v["version"].GetString();
     }
-    std::cerr << "Finished Deserializing SnakeCustomizations" << std::endl;
   }
 };
 struct Settings
@@ -97,7 +88,6 @@ struct Settings
 
   void Deserialize(const rapidjson::Value& v)
   {
-    std::cerr << "Deserializing Settings" << std::endl;
     foodSpawnChance = v["foodSpawnChance"].GetInt();
     minimumFood = v["minimumFood"].GetInt();
     hazardDamagePerTurn = v["hazardDamagePerTurn"].GetInt();
@@ -118,10 +108,14 @@ struct Ruleset
 
   void Deserialize(const rapidjson::Value& v)
   {
-    std::cerr << "Deserializing Ruleset" << std::endl;
     name = v["name"].GetString();
     version = v["version"].GetString();
-    settings.Deserialize(v["settings"]);
+    // docs doesn't say this is optional, but the example
+    // for GameInfo has it missing
+    if(v.HasMember("settings"))
+    {
+      settings.Deserialize(v["settings"]);
+    }
   }
 };
 struct GameInfo
@@ -134,7 +128,6 @@ struct GameInfo
 
   void Deserialize(const rapidjson::Value& v)
   {
-    std::cerr << "Deserializing GameInfo" << std::endl;
     id = v["id"].GetString();
     rules.Deserialize(v["ruleset"]);
     map = v["map"].GetString();
@@ -166,7 +159,6 @@ struct Snake
 
   void Deserialize(const rapidjson::Value& v)
   {
-    std::cerr << "Deserializing Snake" << std::endl;
     id = v["id"].GetString();
     name = v["name"].GetString();
     health = v["health"].GetInt();
@@ -193,7 +185,6 @@ struct Board
 
   void Deserialize(const rapidjson::Value& v)
   {
-    std::cerr << "Deserializing Board" << std::endl;
     height = v["height"].GetInt();
     width = v["width"].GetInt();
     for(const auto& food: v["food"].GetArray())
@@ -220,7 +211,6 @@ struct GameState
   Snake snake;
   void Deserialize(const rapidjson::Value& v)
   {
-    std::cerr << "Deserializing GameState" << std::endl;
     gameInfo.Deserialize(v["game"]);
     turn = v["turn"].GetInt();
     board.Deserialize(v["board"]);
@@ -233,7 +223,6 @@ struct Move
   Core::String shout;
   void Serialize(rapidjson::Writer<rapidjson::StringBuffer>& writer)
   {
-    std::cerr << "Moving " << move << std::endl;
     writer.StartObject();
     writer.Key("move");
     writer.String(move.c_str());

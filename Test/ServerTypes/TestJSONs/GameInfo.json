@@ -1,0 +1,10 @@
+{
+  "id": "totally-unique-game-id",
+  "ruleset": {
+    "name": "standard",
+    "version": "v1.2.3"
+  },
+  "map": "standard",
+  "timeout": 500,
+  "source": "league"
+}
