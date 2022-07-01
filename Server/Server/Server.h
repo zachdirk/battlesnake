@@ -1,3 +1,5 @@
+#pragma once
+
 #include "httplib.h"
 
 #include "Core/String.h"

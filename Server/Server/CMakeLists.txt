@@ -1,5 +1,6 @@
 ADD_LIBRARY(server
   Server.cpp Server.h
+  ServerTypes.h
 )
 
 TARGET_LINK_LIBRARIES(server
